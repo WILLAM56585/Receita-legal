@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Exclusivo para Você</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #45A049;
+            --secondary: #FF5722;
+            --accent: #FFC107;
+            --light: #F5F5F5;
+            --dark: #333;
+            --text: #444;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: rgba(76, 175, 80, 0.2);
+            z-index: 1000;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.5s ease;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--text);
+        }
+        
+        .notification {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-large {
+            padding: 18px 36px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #E64A19;
+            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--white);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 1.1rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            min-height: 80px;
+        }
+        
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+        
+        .card.selected {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+            font-weight: 500;
+        }
+        
+        .card.none {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .card.none.selected {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .card.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            width: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            margin: 30px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+        
+        .progress-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background-color: var(--white);
+            padding: 0 15px;
+        }
+        
+        .progress-step p:first-child {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .progress-step p:last-child {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .benefits {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .benefits p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .benefits p::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .offer-container {
+            background-color: var(--light);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 0;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .offer-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .offer-details {
+            padding: 20px;
+        }
+        
+        .offer-details p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .offer-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+        
+        .error-message {
+            color: #D32F2F;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .testimonial {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: rgba(76, 175, 80, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .testimonial-author img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .guarantee-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .guarantee-badge img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .guarantee-text {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .countdown {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin: 20px 0;
+            padding: 10px;
+            background-color: rgba(255, 87, 34, 0.1);
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+                margin: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .progress-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .progress-container::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de progresso global -->
+    <div class="progress-bar">
+        <div class="progress" id="global-progress"></div>
+    </div>
+
+    <!-- Seção 1 - Introdução -->
+    <div class="container" id="section-1">
+        <h1>Seu Protocolo de Transformação Personalizado Está Pronto!</h1>
+        <p>Baseado em milhares de casos de sucesso, criamos um plano exclusivo para você alcançar seus objetivos de saúde e bem-estar.</p>
+        
+        <div class="notification">
+            <span>🔒</span>
+            <span>Nota de Segurança: Seus dados estão protegidos com criptografia avançada. Valorizamos sua privacidade acima de tudo.</span>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(2)">Começar Minha Jornada</button>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"Perdi 12kg em 8 semanas seguindo este método! Nunca imaginei que seria possível me sentir tão bem com meu corpo."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Ana C.">
+                    <span>Ana C., 34 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 2 - Peso Atual -->
+    <div class="container" id="section-2" style="display: none;">
+        <h1>Vamos começar com seu peso atual</h1>
+        <p>Esta informação nos ajudará a calibrar seu plano personalizado com precisão.</p>
+        
+        <input type="number" id="weight-input" placeholder="Digite seu peso em kg" min="40" max="200" required>
+        <p id="error-message" class="error-message">Por favor, insira um peso válido entre 40kg e 200kg.</p>
+        
+        <button class="btn btn-large" onclick="validateWeight()">Próximo Passo</button>
+        
+        <div class="guarantee-badge">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Garantia">
+            <span class="guarantee-text">Seu progresso é nossa prioridade. Comprometidos com seus resultados.</span>
+        </div>
+    </div>
+
+    <!-- Seção 3 - Objetivo de Peso -->
+    <div class="container" id="section-3" style="display: none;">
+        <h1>Qual é o seu objetivo de peso?</h1>
+        <p>Deslize para selecionar o peso que deseja alcançar. Lembre-se: metas realistas levam a resultados sustentáveis.</p>
+        
+        <input type="range" min="40" max="130" value="70" id="pesoSlider" oninput="updatePesoValue(this.value)">
+        <p>Seu objetivo: <strong><span id="pesoValue">70</span> kg</strong></p>
+        
+        <button class="btn btn-large" onclick="nextSection(4)">Definir Objetivo</button>
+        
+        <div class="benefits">
+            <p>Nosso sistema ajustará automaticamente seu plano conforme você progride</p>
+            <p>Receba orientações específicas para alcançar seu peso ideal com saúde</p>
+            <p>Acompanhamento contínuo para garantir que você atinja sua meta</p>
+        </div>
+    </div>
+
+    <!-- Seção 4 - Satisfação Corporal -->
+    <div class="container" id="section-4" style="display: none;">
+        <h1>Como você se sente em relação ao seu corpo atualmente?</h1>
+        <p>Esta informação nos ajuda a personalizar seu suporte emocional e motivacional.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(5);">
+                <span>😭 Me sinto horrível e com muitas inseguranças</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(5);">
+                <span>🥺 Não me sinto bem, mas quero mudar</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(5);">
+                <span>😐 Estou satisfeita, mas quero melhorar</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(5);">
+                <span>😁 Me sinto bem e quero manter/otimizar</span>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"A abordagem holística me ajudou não só a perder peso, mas a me reconciliar com meu corpo e minha autoimagem."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Mariana L.">
+                    <span>Mariana L., 28 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 5 - Motivação -->
+    <div class="container" id="section-5" style="display: none;">
+        <h1>Por que alcançar seu peso ideal é importante para você?</h1>
+        <p>Selecione todas as opções que se aplicam. Isso nos ajudará a manter você motivada.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="toggleCardSelection(this)">
+                <span>🏊‍♀️ Ficar com um corpo definido para o verão!</span>
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                <span>👩‍❤️‍👨 Melhorar meu relacionamento e autoestima</span>
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                <span>💊 Ter mais saúde e disposição</span>
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                <span>👗 Caber melhor nas minhas roupas favoritas</span>
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                <span>🌟 Todas as opções acima!</span>
+            </div>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(6)">Continuar</button>
+    </div>
+
+    <!-- Seção 6 - Exercícios -->
+    <div class="container" id="section-6" style="display: none;">
+        <h1>Com que frequência você se exercita atualmente?</h1>
+        <p>Não se preocupe se for pouco - vamos criar um plano que se adapte ao seu ritmo.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(7);">
+                <span>🚴‍♀️ Diariamente ou quase todos os dias</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(7);">
+                <span>🤸‍♂️ 3-4 vezes por semana</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(7);">
+                <span>🧘‍♀️ 1-2 vezes por semana</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(7);">
+                <span>📅 Raramente ou nunca</span>
+            </div>
+        </div>
+        
+        <div class="notification">
+            <span>💡</span>
+            <span>Nosso método se adapta ao seu nível de atividade atual, sem exigências impossíveis.</span>
+        </div>
+    </div>
+
+    <!-- Seção 7 - Água -->
+    <div class="container" id="section-7" style="display: none;">
+        <h1>Quantidade de água consumida diariamente</h1>
+        <p>A hidratação adequada é fundamental para o sucesso do seu plano.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(8);">
+                <span>☕ Apenas chá ou café (quase não bebo água pura)</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(8);">
+                <span>🚰 1-3 copos por dia</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(8);">
+                <span>💧 4-6 copos por dia</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(8);">
+                <span>🌊 Mais de 6 copos por dia</span>
+            </div>
+        </div>
+        
+        <div class="benefits">
+            <p>Você receberá lembretes personalizados para hidratação</p>
+            <p>Dicas para aumentar seu consumo de água sem esforço</p>
+            <p>Benefícios da hidratação para perda de peso e saúde</p>
+        </div>
+    </div>
+
+    <!-- Seção 8 - Carregando -->
+    <div class="container" id="section-8" style="display: none;">
+        <h1>Personalizando sua experiência...</h1>
+        <p>Estamos analisando suas respostas para criar o plano perfeito para você.</p>
+        
+        <div class="loading-spinner"></div>
+        
+        <div class="notification">
+            <span>⚡</span>
+            <span>Nosso algoritmo está cruzando seus dados com milhares de casos de sucesso</span>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(9)" style="margin-top: 30px;">Pronto! Continuar</button>
+    </div>
+
+    <!-- Seção 9 - Preferências Alimentares -->
+    <div class="container" id="section-9" style="display: none;">
+        <h1>Você segue alguma preferência alimentar específica?</h1>
+        <p>Selecione a opção que melhor descreve seus hábitos.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(10);">
+                <span>🍽️ Sem restrições - como de tudo</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(10);">
+                <span>🌱 Vegetariana - não como carne</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(10);">
+                <span>🌿 Vegana - não consumo produtos animais</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(10);">
+                <span>🍲 Flexitariana - principalmente vegetais, mas como carne às vezes</span>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"As receitas adaptadas às minhas preferências vegetarianas foram o que tornaram este plano sustentável para mim."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Juliana M.">
+                    <span>Juliana M., 41 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 10 - Refeições -->
+    <div class="container" id="section-10" style="display: none;">
+        <h1>Quantas refeições você faz normalmente por dia?</h1>
+        <p>Isso nos ajuda a criar um plano alimentar que se encaixe na sua rotina.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(11);">
+                <span>🍽️ 1-2 refeições principais</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(11);">
+                <span>⏱️ 3 refeições (café, almoço e jantar)</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(11);">
+                <span>🥗 3 refeições principais + lanches</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(11);">
+                <span>🍎 Várias pequenas refeições ao longo do dia</span>
+            </div>
+        </div>
+        
+        <div class="notification">
+            <span>🔍</span>
+            <span>Importante: Não existe um número "correto" de refeições. Vamos encontrar o que funciona para você.</span>
+        </div>
+    </div>
+
+    <!-- Seção 11 - Dores -->
+    <div class="container" id="section-11" style="display: none;">
+        <h1>Você sente dores ou desconfortos em alguma dessas áreas?</h1>
+        <p>Selecione todas as opções que se aplicam. Isso nos ajuda a adaptar seus exercícios.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="toggleSelection(this)">
+                🦵 Costas
+            </div>
+            <div class="card" onclick="toggleSelection(this)">
+                🦵 Joelhos
+            </div>
+            <div class="card" onclick="toggleSelection(this)">
+                🦶 Tornozelos
+            </div>
+            <div class="card" onclick="toggleSelection(this)">
+                🤚 Pulsos
+            </div>
+            <div class="card" onclick="toggleSelection(this)">
+                💪 Ombros
+            </div>
+            <div class="card none" onclick="selectNone(this)">
+                ✅ Nenhuma das opções acima
+            </div>
+        </div>
+        
+        <p id="error-message" class="error-message">Por favor, selecione pelo menos uma opção.</p>
+        <button class="btn btn-large" onclick="validateSelection(12)">Continuar</button>
+        
+        <div class="benefits">
+            <p>Seus exercícios serão adaptados para evitar agravar qualquer condição</p>
+            <p>Dicas específicas para alívio de dores e melhora da mobilidade</p>
+            <p>Exercícios terapêuticos personalizados, se necessário</p>
+        </div>
+    </div>
+
+    <!-- Seção 12 - Caminhada -->
+    <div class="container" id="section-12" style="display: none;">
+        <h1>Quanto tempo você costuma caminhar diariamente?</h1>
+        <p>Esta informação nos ajuda a calibrar seu plano de atividades.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="goToNextSection('section-13')">
+                <span>🚶‍♂️ Menos de 20 minutos (pouca caminhada)</span>
+            </div>
+            <div class="card" onclick="goToNextSection('section-13')">
+                <span>🚶‍♀️ 20-60 minutos (caminhada moderada)</span>
+            </div>
+            <div class="card" onclick="goToNextSection('section-13')">
+                <span>🏃‍♂️ Mais de 60 minutos (muito ativa)</span>
+            </div>
+            <div class="card" onclick="goToNextSection('section-13')">
+                <span>🛋️ Quase não caminho (sedentária)</span>
+            </div>
+        </div>
+        
+        <div class="notification">
+            <span>📈</span>
+            <span>Independente da sua resposta atual, vamos ajudá-la a evoluir no seu ritmo.</span>
+        </div>
+    </div>
+
+    <!-- Seção 13 - Confirmação -->
+    <div class="container" id="section-13" style="display: none;">
+        <h1>Estamos quase lá!</h1>
+        <p>Seu plano personalizado está quase pronto. Pronta para ver os resultados?</p>
+        
+        <div class="content">
+            <button class="btn btn-large" onclick="showSection('section-14')">Sim, quero ver meu plano!</button>
+        </div>
+        
+        <div class="guarantee-badge">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Garantia">
+            <span class="guarantee-text">100% adaptado às suas necessidades e objetivos</span>
+        </div>
+    </div>
+
+    <!-- Seção 14 - Objetivos Adicionais -->
+    <div class="container" id="section-14" style="display: none;">
+        <h1>Além do peso, o que mais você deseja alcançar?</h1>
+        <p>Selecione todas as opções que deseja incluir no seu plano.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="toggleCard(this)">
+                💪 Mais força e resistência física
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                ⚡ Mais energia e disposição no dia a dia
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                🧠 Melhor foco e clareza mental
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                😴 Sono mais reparador e de qualidade
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                🧘‍♀️ Menos estresse e mais equilíbrio emocional
+            </div>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(15)">Continuar</button>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"Além de perder 8kg, ganhei uma energia que não tinha há anos e meu sono melhorou incrivelmente!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Carla R.">
+                    <span>Carla R., 37 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 15 - Variação de Peso -->
+    <div class="container" id="section-15" style="display: none;">
+        <h1>Como seu peso normalmente varia?</h1>
+        <p>Esta informação nos ajuda a entender seu metabolismo.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(16);">
+                <span>💪 Tenho dificuldade para ganhar peso/músculo</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(16);">
+                <span>⚖️ Ganho e perco peso com facilidade</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(16);">
+                <span>🍔 Ganho peso fácil, mas perco com dificuldade</span>
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(16);">
+                <span>📊 Meu peso é bastante estável</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <img src="https://i.ibb.co/5jjzRyF/article-Help-Scales.jpg" alt="Metabolismo" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+        </div>
+    </div>
+
+    <!-- Seção 16 - Melhor Forma -->
+    <div class="container" id="section-16" style="display: none;">
+        <h1>Quando você estava na sua melhor forma física?</h1>
+        <p>Isso nos ajuda a entender seu histórico.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(17);">
+                🕐 Há menos de 1 ano
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(17);">
+                🕑 1-3 anos atrás
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(17);">
+                🕒 Mais de 3 anos atrás
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(17);">
+                🚫 Nunca estive na minha melhor forma
+            </div>
+        </div>
+        
+        <div class="notification">
+            <span>🌟</span>
+            <span>Independente de quando foi, vamos ajudá-la a alcançar sua melhor versão!</span>
+        </div>
+    </div>
+
+    <!-- Seção 17 - Dificuldades Alimentares -->
+    <div class="container" id="section-17" style="display: none;">
+        <h1>Você tem dificuldade com algum desses comportamentos?</h1>
+        <p>Selecione todas as opções que se aplicam.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(18);">
+                Fome excessiva ou constante
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(18);">
+                Comer por emoção (tédio, estresse, etc.)
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(18);">
+                Dificuldade em controlar porções
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(18);">
+                Nenhuma das opções acima
+            </div>
+        </div>
+        
+        <div class="benefits">
+            <p>Se necessário, seu plano incluirá estratégias específicas para esses desafios</p>
+            <p>Técnicas comprovadas para controle de apetite e porções</p>
+            <p>Suporte emocional e comportamental</p>
+        </div>
+    </div>
+
+    <!-- Seção 18 - Níveis de Energia -->
+    <div class="container" id="section-18" style="display: none;">
+        <h1>Como estão seus níveis de energia durante o dia?</h1>
+        <p>Isso nos ajuda a ajustar seu plano nutricional e de atividades.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(19);">
+                😴 Baixos - me sinto cansada o dia todo
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(19);">
+                🥱 Cansaço após o almoço (aquele "paneleiro")
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(19);">
+                ⏳ Cansada antes das refeições
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(19);">
+                ⚡ Energia estável durante o dia
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"Depois de ajustar minha alimentação conforme o plano, minha energia durante o dia aumentou incrivelmente!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Patrícia S.">
+                    <span>Patrícia S., 43 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 19 - Desejos Alimentares -->
+    <div class="container" id="section-19" style="display: none;">
+        <h1>Quais alimentos você mais sente vontade de comer?</h1>
+        <p>Selecione todas as opções que se aplicam.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="toggleCardSelection(this)">
+                🍫 Doces e chocolates
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🍔 Fast food e comidas gordurosas
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🧂 Salgadinhos e snacks salgados
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🥤 Refrigerantes e bebidas açucaradas
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🍞 Pães e massas
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🚫 Nenhum dos acima
+            </div>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(20)">Continuar</button>
+        
+        <div class="notification">
+            <span>🍏</span>
+            <span>Seu plano incluirá alternativas saudáveis para seus desejos específicos.</span>
+        </div>
+    </div>
+
+    <!-- Seção 20 - Hábitos Alimentares -->
+    <div class="container" id="section-20" style="display: none;">
+        <h1>Você tem algum desses hábitos alimentares?</h1>
+        <p>Selecione todas as opções que se aplicam.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="toggleCardSelection(this)">
+                🌙 Belisco muito à noite ou de madrugada
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                😔 Como por emoção (tédio, estresse, tristeza)
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🍭 Não consigo resistir a doces
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                📅 No fim de semana abandono a dieta
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🕒 Pulo refeições e depois como muito
+            </div>
+            <div class="card" onclick="toggleCardSelection(this)">
+                🚫 Nenhum dos acima
+            </div>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(21)">Continuar</button>
+        
+        <div class="benefits">
+            <p>Estratégias personalizadas para cada hábito que deseja mudar</p>
+            <p>Dicas para lidar com cada situação específica</p>
+            <p>Plano adaptável para fins de semana e ocasiões especiais</p>
+        </div>
+    </div>
+
+    <!-- Seção 21 - Sono -->
+    <div class="container" id="section-21" style="display: none;">
+        <h1>Como você descreveria seu padrão de sono?</h1>
+        <p>O sono é fundamental para o controle de peso e saúde geral.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(22);">
+                😴 Durmo bem a noite toda
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(22);">
+                🛌 Acordo várias vezes durante a noite
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(22);">
+                🌙 Tenho dificuldade para adormecer
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(22);">
+                🌅 Acordo muito cedo e não consigo voltar a dormir
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(22);">
+                📅 Durmo pouco na semana, compenso no fim de semana
+            </div>
+        </div>
+        
+        <div class="notification">
+            <span>🌜</span>
+            <span>Se necessário, seu plano incluirá estratégias para melhorar a qualidade do seu sono.</span>
+        </div>
+    </div>
+
+    <!-- Seção 22 - Histórico de Dietas -->
+    <div class="container" id="section-22" style="display: none;">
+        <h1>Já tentou outras dietas antes?</h1>
+        <p>Nos conte sobre suas experiências anteriores.</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectSingleCard(this); nextSection(23);">
+                ❌ Nunca fiz dieta antes
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(23);">
+                🥴 Funcionou, mas era difícil manter
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(23);">
+                📉 Tive resultados, mas depois estagnei
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(23);">
+                🔄 Funcionou no começo, depois o peso voltou
+            </div>
+            <div class="card" onclick="selectSingleCard(this); nextSection(23);">
+                ✅ Sim, e foi uma experiência positiva
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <p>"Já tinha tentado várias dietas antes, mas esta foi a primeira que consegui manter e que realmente mudou minha relação com a comida."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/29.jpg" alt="Fernanda T.">
+                    <span>Fernanda T., 31 anos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 23 - Resultados Esperados -->
+    <div class="container" id="section-23" style="display: none;">
+        <h1>Seu Protocolo Personalizado Está Pronto!</h1>
+        <h2>Analisamos seu perfil e criamos um plano exclusivo para você</h2>
+        
+        <div class="progress-container">
+            <div class="progress-step">
+                <div class="progress-circle">1</div>
+                <p>Hoje</p>
+                <p>Início da sua transformação</p>
+            </div>
+            <div class="progress-step">
+                <div class="progress-circle">2</div>
+                <p>7-14 dias</p>
+                <p>Primeiros resultados visíveis</p>
+            </div>
+            <div class="progress-step">
+                <div class="progress-circle">3</div>
+                <p>21-28 dias</p>
+                <p>Transformação significativa</p>
+            </div>
+        </div>
+        
+        <h3>O que você vai receber:</h3>
+        
+        <div class="benefits">
+            <p>Plano alimentar personalizado com suas preferências</p>
+            <p>Roteiro de exercícios adaptado ao seu nível e disponibilidade</p>
+            <p>Estratégias para vencer seus desafios específicos</p>
+            <p>Suporte contínuo para manter sua motivação</p>
+            <p>Dicas para melhorar sono, energia e bem-estar geral</p>
+        </div>
+        
+        <button class="btn btn-large" onclick="nextSection(24)">Quero Ver Meu Plano!</button>
+    </div>
+
+    <!-- Seção 24 - Oferta -->
+    <div class="container" id="section-24" style="display: none;">
+        <div class="notification">
+            <span>🎁 OFERTA ESPECIAL POR TEMPO LIMITADO</span>
+        </div>
+        
+        <h1>Seu Plano de Transformação + Bônus Exclusivos</h1>
+        <h2>Comece sua jornada hoje com tudo que precisa para ter sucesso</h2>
+        
+        <div class="content">
+            <img src="https://i.ibb.co/qxNspwF/shutterstock-521741356.jpg" alt="Plano de Transformação" style="max-width: 100%; border-radius: 10px;">
+        </div>
+        
+        <div class="benefits">
+            <p>✅ Plano alimentar 100% personalizado</p>
+            <p>✅ Guia de exercícios para seu nível</p>
+            <p>✅ Estratégias para vencer desejos por comida</p>
+            <p>✅ Técnicas para melhorar sono e energia</p>
+            <p>✅ Acompanhamento e suporte</p>
+        </div>
+        
+        <div class="countdown" id="countdown">
+            Oferta disponível por: 49:59 minutos
+        </div>
+        
+        <div class="offer-container">
+            <div class="offer-header">
+                PROMOÇÃO ESPECIAL - ÚLTIMAS VAGAS!
+            </div>
+            <div class="offer-details">
+                <p><strong>Protocolo de Transformação Completo</strong></p>
+                <p class="offer-price">4x de R$ 9,93 ou R$ 37,00 à vista</p>
+                <p>+ Bônus: E-book de Receitas Saudáveis (GRÁTIS)</p>
+            </div>
+        </div>
+        
+        <button class="btn btn-large btn-secondary" id="get-plan-btn" onclick="window.location.href='https://go.hotmart.com/E87619432S?ap=5b64'">
+            Quero Meu Plano Personalizado!
+        </button>
+        
+        <div class="guarantee-badge">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Garantia">
+            <span class="guarantee-text">7 dias de garantia incondicional - Se não gostar, devolvemos seu dinheiro</span>
+        </div>
+    </div>
+
+    <script>
+        // Funções globais
+        function nextSection(sectionId) {
+            const sections = document.querySelectorAll('.container');
+            sections.forEach(section => section.style.display = 'none');
+            document.getElementById(`section-${sectionId}`).style.display = 'block';
+            
+            // Atualiza a barra de progresso global
+            updateProgressBar(sectionId, 24);
+            
+            // Rola para o topo
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // Se for a seção 23, anima os passos
+            if (sectionId == 23) {
+                animateProgressSteps();
+            }
+            
+            // Se for a seção 24, inicia o countdown
+            if (sectionId == 24) {
+                startCountdown();
+            }
+        }
+        
+        function updateProgressBar(currentStep, totalSteps) {
+            const progress = document.getElementById('global-progress');
+            const percentage = (currentStep / totalSteps) * 100;
+            progress.style.width = `${percentage}%`;
+        }
+        
+        function animateProgressSteps() {
+            const steps = document.querySelectorAll('.progress-circle');
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.style.backgroundColor = '#4CAF50';
+                    step.style.color = 'white';
+                    step.style.borderColor = '#4CAF50';
+                }, 500 * (index + 1));
+            });
+        }
+        
+        function startCountdown() {
+            let minutes = 49;
+            let seconds = 59;
+            
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                countdownElement.textContent = `Oferta disponível por: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} minutos`;
+                
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(timer);
+                    } else {
+                        minutes--;
+                        seconds = 59;
+                    }
+                } else {
+                    seconds--;
+                }
+            }, 1000);
+        }
+        
+        function validateWeight() {
+            const weightInput = document.getElementById('weight-input');
+            const weight = parseInt(weightInput.value);
+            const errorMessage = document.getElementById('error-message');
+            
+            if (weight >= 40 && weight <= 200) {
+                errorMessage.style.display = 'none';
+                sessionStorage.setItem('currentWeight', weight);
+                nextSection(3);
+                
+                // Define o máximo do slider com base no peso atual
+                const pesoSlider = document.getElementById('pesoSlider');
+                pesoSlider.max = Math.min(130, weight);
+                pesoSlider.value = Math.max(40, weight - 10); // Sugere uma meta 10kg abaixo
+                updatePesoValue(pesoSlider.value);
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+        
+        function updatePesoValue(value) {
+            document.getElementById('pesoValue').textContent = value;
+        }
+        
+        function toggleSelection(card) {
+            const noneCard = document.querySelector('.card.none');
+            
+            if (noneCard.classList.contains('selected')) {
+                noneCard.classList.remove('selected');
+                enableAllOptions();
+            }
+            
+            card.classList.toggle('selected');
+        }
+        
+        function selectNone(card) {
+            const allCards = document.querySelectorAll('.list .card:not(.none)');
+            
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+                enableAllOptions();
+            } else {
+                card.classList.add('selected');
+                disableAllOptions();
+            }
+        }
+        
+        function disableAllOptions() {
+            const allCards = document.querySelectorAll('.list .card:not(.none)');
+            allCards.forEach(card => {
+                card.classList.remove('selected');
+                card.classList.add('disabled');
+            });
+        }
+        
+        function enableAllOptions() {
+            const allCards = document.querySelectorAll('.list .card:not(.none)');
+            allCards.forEach(card => {
+                card.classList.remove('disabled');
+            });
+        }
+        
+        function validateSelection(nextSectionId) {
+            const selectedCards = document.querySelectorAll('.card.selected');
+            const errorMessage = document.getElementById('error-message');
+            
+            if (selectedCards.length === 0) {
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+                nextSection(nextSectionId);
+            }
+        }
+        
+        function goToNextSection(nextSectionId) {
+            nextSection(parseInt(nextSectionId.split('-')[1]));
+        }
+        
+        function showSection(sectionId) {
+            nextSection(parseInt(sectionId.split('-')[1]));
+        }
+        
+        function selectSingleCard(card) {
+            const cards = card.parentElement.querySelectorAll('.card');
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        }
+        
+        function toggleCardSelection(card) {
+            card.classList.toggle('selected');
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            nextSection(1);
+            updateProgressBar(1, 24);
+        });
+    </script>
+</body>
+</html>
